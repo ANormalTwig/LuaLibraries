@@ -209,13 +209,13 @@ function HTTPResponse:finish(chunk)
 end
 
 ---@class HTTP: Server
-local HTTP = {}
-HTTP.__index = HTTP
-setmetatable(HTTP, Server)
+local HTTPServer = {}
+HTTPServer.__index = HTTPServer
+setmetatable(HTTPServer, Server)
 
---- New HTTP Server
+--- New HTTPServer
 ---@param callback fun(req: HTTPRequest, res: HTTPResponse)
-function HTTP:new(callback)
+function HTTPServer:new(callback)
 	local http = setmetatable(getmetatable(self):new(), self)
 
 	http:on("connect", function(client)
@@ -236,5 +236,7 @@ function HTTP:new(callback)
 	return http
 end
 
-return HTTP
+return {
+	HTTPServer = HTTPServer,
+}
 
